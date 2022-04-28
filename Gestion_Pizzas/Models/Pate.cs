@@ -1,4 +1,4 @@
-﻿namespace BO
+﻿namespace Gestion_Pizzas
 {
     public class Pate
     {

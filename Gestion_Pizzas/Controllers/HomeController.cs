@@ -15,14 +15,14 @@ namespace Gestion_Pizzas.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Description fonctionnelle de l'application";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Mes coordonnées";
 
             return View();
         }

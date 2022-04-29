@@ -171,6 +171,7 @@
     <Content Include="Views\Pizza\Create.cshtml" />
     <Content Include="Views\Pizza\Edit.cshtml" />
     <Content Include="Views\Pizza\Delete.cshtml" />
+    <Content Include="Views\Pizza\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

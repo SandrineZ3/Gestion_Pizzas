@@ -1,0 +1,51 @@
+﻿@model Gestion_Pizzas.Pizza
+
+<div>
+    <h4>Détails de la pizza</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        @*Nom de la pizza*@
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+
+        <br />
+
+        @*Pate*@
+        <dt>
+            @Html.DisplayNameFor(model => model.Pate)
+        </dt>
+
+        <dd>
+            @if (Model.Pate != null)
+            {
+                @Html.DisplayFor(model => model.Pate.Nom)
+            }
+        </dd>
+
+        <br />
+
+        @*Ingredients*@
+        <dt>
+            @Html.DisplayNameFor(model => model.Ingredients)
+        </dt>
+
+        <dd>
+            @if (Model.Ingredients != null)
+            {
+                foreach (var ingredient in Model.Ingredients)
+                {
+                    @Html.DisplayFor(m => ingredient.Nom)<br />
+                }
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Retour à la liste des pizzas", "Index")
+</p>

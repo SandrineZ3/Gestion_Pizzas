@@ -91,34 +91,34 @@ namespace Gestion_Pizzas.Controllers
         [HttpPost]
         public ActionResult Create(PizzaCreateEditVM pizzaCreateEditVM)
         {
-            //TODO : A revoir
-            try
-            {
-                var pizza = pizzaCreateEditVM.Pizza;
+            if(ModelState.IsValid) {
 
-                // On récupère les objets ingrédients de la liste ingredientsDisponibles du controller à partir des ids choisis portés par le ViewModel, puis on les affecte à notre objet pizza
-                pizza.Ingredients = ingredients.Where(i => pizzaCreateEditVM.IdSelectedIngredients.Contains(i.Id)).ToList();
+                    var pizza = pizzaCreateEditVM.Pizza;
 
-                // On récupère l'objet pâte de la liste patesDisponibles du controller à partir de l'id porté par le ViewModel, puis on l'affecte à notre objet pizza
-                pizza.Pate = pates.FirstOrDefault(p => p.Id == pizzaCreateEditVM.IdSelectedPate);
+                    // On récupère les objets ingrédients de la liste ingredientsDisponibles du controller à partir des ids choisis portés par le ViewModel, puis on les affecte à notre objet pizza
+                    pizza.Ingredients = ingredients.Where(i => pizzaCreateEditVM.IdSelectedIngredients.Contains(i.Id)).ToList();
 
-                // on affecte l'Id à partir de l'id max de notre liste de pizzas plus un.
-                // si notre liste est vide, on affecte la valeur 1.
-                pizza.Id = pizzas.Any() ? pizzas.Max(p => p.Id) + 1 : 1;
+                    // On récupère l'objet pâte de la liste patesDisponibles du controller à partir de l'id porté par le ViewModel, puis on l'affecte à notre objet pizza
+                    pizza.Pate = pates.FirstOrDefault(p => p.Id == pizzaCreateEditVM.IdSelectedPate);
 
-                // On ajoute la nouvelle pizza à notre liste statique
-                pizzas.Add(pizza);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
+                    // on affecte l'Id à partir de l'id max de notre liste de pizzas plus un.
+                    // si notre liste est vide, on affecte la valeur 1.
+                    pizza.Id = pizzas.Any() ? pizzas.Max(p => p.Id) + 1 : 1;
 
-                // Si nous avons rencontré une erreur, il faut recharger la page de création, de ce fait il nous faut réalimenter le Viewmodel avant de le passer à la vue
-                pizzaCreateEditVM.Ingredients = ingredients.Select(i => new SelectListItem { Text = i.Nom, Value = i.Id.ToString() }).ToList();
-                pizzaCreateEditVM.Pates = pates.Select(i => new SelectListItem { Text = i.Nom, Value = i.Id.ToString() }).ToList();
-                return View(pizzaCreateEditVM);
-            }
+                    // On ajoute la nouvelle pizza à notre liste statique
+                    pizzas.Add(pizza);
+                    return RedirectToAction("Index");
+                }
+                else 
+                {
+
+                    // Si nous avons rencontré une erreur, il faut recharger la page de création, de ce fait il nous faut réalimenter le Viewmodel avant de le passer à la vue
+                    pizzaCreateEditVM.Ingredients = ingredients.Select(i => new SelectListItem { Text = i.Nom, Value = i.Id.ToString() }).ToList();
+                    pizzaCreateEditVM.Pates = pates.Select(i => new SelectListItem { Text = i.Nom, Value = i.Id.ToString() }).ToList();
+                    return View(pizzaCreateEditVM);
+                }
+            
+            
         }
 
         // GET: Default/Edit/5
